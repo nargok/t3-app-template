@@ -1,7 +1,8 @@
-import type { Task } from "./task";
+import { type Task } from "./task";
+import { type TaskId } from "./taskId";
 
 export interface ITaskRepository {
-    findById(id: string): Promise<Task | null>;
+    findById(id: TaskId): Promise<Task | null>;
     findByTitle(title: string): Promise<Task | null>;
     findAll(): Promise<Task[]>;
     save(task: Task): Promise<void>;
