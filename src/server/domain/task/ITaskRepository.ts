@@ -1,5 +1,5 @@
-import { type Task } from "./task";
-import { type TaskId } from "./taskId";
+import { type Task } from "./Task";
+import { type TaskId } from "./TaskId";
 
 export const TaskRepositoryToken = Symbol.for("ITaskRepository");
 
