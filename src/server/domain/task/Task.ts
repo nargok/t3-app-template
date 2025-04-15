@@ -1,4 +1,4 @@
-import { TaskId } from "./taskId";
+import { TaskId } from "./TaskId";
 import type { TaskTitle } from "./TaskTitle";
 
 export class Task {

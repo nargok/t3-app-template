@@ -3,8 +3,8 @@ import { injectable } from "tsyringe";
 import { db } from "@/server/db";
 import { tasks } from "@/server/db/schema";
 import type { ITaskRepository } from "@/server/domain/task/ITaskRepository";
-import { Task } from "@/server/domain/task/task";
-import { TaskId } from "@/server/domain/task/taskId";
+import { Task } from "@/server/domain/task/Task";
+import { TaskId } from "@/server/domain/task/TaskId";
 import { TaskTitle } from "@/server/domain/task/TaskTitle";
 
 @injectable()
