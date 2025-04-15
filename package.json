@@ -36,6 +36,7 @@
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "tsyringe": "^4.9.1",
+    "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
