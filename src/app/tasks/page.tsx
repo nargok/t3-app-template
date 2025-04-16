@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function TasksPage() {
     const tasks = await api.task.all();
@@ -29,9 +30,11 @@ export default async function TasksPage() {
                         登録されているすべてのタスクの一覧です
                     </CardDescription>
                     <CardAction>
-                        <Button>
-                            新規タスク
-                        </Button>
+                        <Link href="/tasks/register">
+                            <Button>
+                                新規タスク
+                            </Button>
+                        </Link>
                     </CardAction>
                 </CardHeader>
                 <CardContent>
