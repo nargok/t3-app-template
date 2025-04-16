@@ -1,0 +1,1 @@
+ALTER TABLE "t3-app-with-di_task" ALTER COLUMN "title" SET NOT NULL;

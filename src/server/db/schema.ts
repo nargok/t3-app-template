@@ -106,3 +106,19 @@ export const verificationTokens = createTable(
   }),
   (t) => [primaryKey({ columns: [t.identifier, t.token] })],
 );
+
+export const tasks = createTable(
+  "task",
+  (d) => ({
+    id: d.uuid().primaryKey(),
+    title: d.varchar({ length: 256 }).notNull(),
+    createdAt: d
+      .timestamp({ withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+  }),
+  (t) => [
+    index("title").on(t.title),
+  ],
+);

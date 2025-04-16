@@ -8,6 +8,20 @@
       "when": 1744702758192,
       "tag": "0000_rare_gladiator",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1744706830484,
+      "tag": "0001_real_nicolaos",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744707299987,
+      "tag": "0002_conscious_black_tarantula",
+      "breakpoints": true
     }
   ]
 }

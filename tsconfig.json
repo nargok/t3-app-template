@@ -24,6 +24,10 @@
     "plugins": [{ "name": "next" }],
     "incremental": true,
 
+    /* Decorator */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
