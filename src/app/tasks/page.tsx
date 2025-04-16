@@ -1,11 +1,7 @@
-import { api, HydrateClient } from "@/trpc/server";
+import { api } from "@/trpc/server";
 
-export default function TasksPage() {
-    const { data: tasks, isLoading } = api.task.all()
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+export default async function TasksPage() {
+    const tasks = await api.task.all()
 
     return (
         <div>

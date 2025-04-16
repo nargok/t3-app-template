@@ -12,7 +12,6 @@ const taskUsecase = container.resolve(TaskUsecase);
 
 export const taskRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const tasks = await taskUsecase.getAllTasks();
-    return tasks ?? [];
+    return await taskUsecase.getAllTasks();
   }),
 });
