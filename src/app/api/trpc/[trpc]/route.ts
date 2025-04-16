@@ -1,3 +1,4 @@
+import 'reflect-metadata'; // Required for decorators to work in Next.js
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { type NextRequest } from "next/server";
 
