@@ -1,12 +1,13 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { api } from "@/trpc/react";
 
 const formSchema = z.object({
     title: z.string()
@@ -23,8 +24,15 @@ export default function TaskRegisterPage() {
         }
     })
 
+    const createTask = api.task.create.useMutation({
+        onSuccess: async () => {
+            router.refresh();
+            router.push("/tasks");
+        }
+    })
+
     async function onSubmit(value: z.infer<typeof formSchema>) {
-        console.log(value);
+        createTask.mutate({ title : value.title });
         router.push("/tasks");
     }
 
