@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 const formSchema = z.object({
     title: z.string()
       .min(1, { message: "Title is required" })
-    //   .max(255, { message: "Title must be less than 255 characters" }),
+      .max(255, { message: "Title must be less than 255 characters" }),
 });
 
 export default function TaskRegisterPage() {
@@ -41,6 +41,7 @@ export default function TaskRegisterPage() {
                         <FormControl>
                             <Input placeholder="task title" {...field} />
                         </FormControl>
+                        <FormMessage />
                     </FormItem>
                     )}
                  />
