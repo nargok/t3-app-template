@@ -17,6 +17,8 @@ const formSchema = z.object({
 
 export default function TaskRegisterPage() {
     const router = useRouter();
+    const utils = api.useUtils();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -26,6 +28,7 @@ export default function TaskRegisterPage() {
 
     const createTask = api.task.create.useMutation({
         onSuccess: async () => {
+            await utils.task.all.invalidate();
             router.refresh();
             router.push("/tasks");
         }
