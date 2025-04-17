@@ -9,7 +9,7 @@ import { taskRouter } from "@/server/api/routers/task";
  */
 export const appRouter = createTRPCRouter({
   post: postRouter,
-  task: taskRouter, 
+  task: taskRouter,
 });
 
 // export type definition of API

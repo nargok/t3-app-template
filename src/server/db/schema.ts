@@ -118,7 +118,5 @@ export const tasks = createTable(
       .notNull(),
     updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
   }),
-  (t) => [
-    index("title").on(t.title),
-  ],
+  (t) => [index("title").on(t.title)],
 );
