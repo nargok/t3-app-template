@@ -53,9 +53,11 @@ export default async function TasksPage() {
                     </TableCell>
                     <TableCell>{task.title}</TableCell>
                     <TableCell className="text-right">
-                      <Button variant="outline" size="sm">
-                        詳細
-                      </Button>
+                      <Link href={`/tasks/edit/${task.id}`}>
+                        <Button variant="outline" size="sm">
+                          詳細
+                        </Button>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -1,10 +1,10 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/react";
+import { useParams, useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -14,7 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { api } from "@/trpc/react";
+import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   title: z
@@ -23,9 +24,11 @@ const formSchema = z.object({
     .max(255, { message: "Title must be less than 255 characters" }),
 });
 
-export default function TaskRegisterPage() {
+export default function TaskEditPage() {
   const router = useRouter();
   const utils = api.useUtils();
+  const params = useParams();
+  const id = typeof params.id === "string" ? params.id : ""; // Ensure id is a string
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,7 +37,7 @@ export default function TaskRegisterPage() {
     },
   });
 
-  const createTask = api.task.create.useMutation({
+  const updateTask = api.task.update.useMutation({
     onSuccess: async () => {
       await utils.task.all.invalidate();
       router.refresh();
@@ -43,7 +46,31 @@ export default function TaskRegisterPage() {
   });
 
   async function onSubmit(value: z.infer<typeof formSchema>) {
-    createTask.mutate({ title: value.title });
+    updateTask.mutate({ id, title: value.title });
+  }
+
+  const { data: task, isLoading } = api.task.findById.useQuery(
+    { id },
+    {
+      refetchOnMount: true,
+      staleTime: 0,
+    },
+  );
+
+  useEffect(() => {
+    if (task) {
+      form.reset({
+        title: task.title,
+      });
+    }
+  }, [task, form]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!task) {
+    return <div>Task not found</div>;
   }
 
   return (
@@ -57,13 +84,13 @@ export default function TaskRegisterPage() {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="task title" {...field} />
+                  <Input placeholder="Title" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">登録</Button>
+          <Button type="submit">更新</Button>
         </form>
       </Form>
     </div>
