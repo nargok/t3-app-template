@@ -45,8 +45,20 @@ export default function TaskEditPage() {
     },
   });
 
+  const deleteTask = api.task.delete.useMutation({
+    onSuccess: async () => {
+      await utils.task.all.invalidate();
+      router.refresh();
+      router.push("/tasks");
+    },
+  });
+
   async function onSubmit(value: z.infer<typeof formSchema>) {
     updateTask.mutate({ id, title: value.title });
+  }
+
+  async function onDelete() {
+    deleteTask.mutate({ id });
   }
 
   const { data: task, isLoading } = api.task.findById.useQuery(
@@ -75,6 +87,12 @@ export default function TaskEditPage() {
 
   return (
     <div className="container mx-auto py-10">
+      <div className="mb-4 flex justify-between">
+        <h2>タスク詳細</h2>
+        <Button variant="destructive" onClick={onDelete}>
+          削除
+        </Button>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -90,7 +108,9 @@ export default function TaskEditPage() {
               </FormItem>
             )}
           />
-          <Button type="submit">更新</Button>
+          <div className="flex justify-between space-x-4">
+            <Button type="submit">更新</Button>
+          </div>
         </form>
       </Form>
     </div>
